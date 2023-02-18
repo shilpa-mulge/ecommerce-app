@@ -1,18 +1,54 @@
-import React from 'react';
+
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import Product from './Layouts/Product';
-import Header from './Header/Header';
-import HeaderTitle from './Header/headerTitle';
-import Footer from "./Header/Footer";
+import EcontextProvider from './store/EcontextProvider';
+import About from './About/About';
+import Home from './Home/Home';
+import Root from './Header/Root';
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/Product',
+        element: <Product />,
+      },
+      {
+        path: '/About',
+        element: <About />,
+      },
+    ]
+  },
+])
 
 const App = () => {
+  /*  const [CartIsShown, setCartIsShown] = useState(false)
+   const onShowHandler = () => {
+     setCartIsShown(true)
+   }
+   const onCloseHandler = () => {
+     setCartIsShown(false)
+   }
+  */
   return (
-    <>
-      <Header />
+    <EcontextProvider>
+      <RouterProvider router={router} />
+    </EcontextProvider>
+    /*    <EcontextProvider>
+    {CartIsShown && <Cart onClose={onCloseHandler} />}
+      <Header onShow={onShowHandler} />
       <HeaderTitle />
+      <About />
       <Product />
-      <Footer />
-    </>
+      <Footer /> 
+      
+    </EcontextProvider> */
 
   );
 }
