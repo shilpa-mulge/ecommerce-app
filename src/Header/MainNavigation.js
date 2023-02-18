@@ -24,6 +24,11 @@ const MainNavigation = () => {
                             isActive ? classes.active : undefined
                         } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>About</NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/ContactUs" className={({ isActive }) =>
+                            isActive ? classes.active : undefined
+                        } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>ContactUs</NavLink>
+                    </li>
                 </ul>
 
             </Navbar>

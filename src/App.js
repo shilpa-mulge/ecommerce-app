@@ -6,6 +6,7 @@ import EcontextProvider from './store/EcontextProvider';
 import About from './About/About';
 import Home from './Home/Home';
 import Root from './Header/Root';
+import ContactUs from './ContactUs';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: '/About',
         element: <About />,
       },
+      {
+        path: '/ContactUs',
+        element: <ContactUs />
+      }
     ]
   },
 ])
