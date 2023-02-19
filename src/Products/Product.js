@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CardIcone from "../Header/CardIcone";
 import { Row, Container, Col, Button } from "react-bootstrap";
-import ProductList from "./ProdutList";
+import ProductList from './ProdutList';
 import Cart from "../Cart/Cart";
 const Product = (props) => {
     const productsArr = [

@@ -10,7 +10,7 @@ const ContactUs = () => {
         const userObj = { name: name, email: email, phone: phone }
 
         try {
-            const response = await fetch('https://react-app-cd331-default-rtdb.firebaseio.com/users.json/', {
+            const response = await fetch('https://react-app-cd331-default-rtdb.firebaseio.com/users.json', {
                 method: 'POST',
                 body: JSON.stringify(userObj),
                 headers: {

@@ -21,7 +21,7 @@ const AddReducer = (state, action) => {
             updatedProducts = state.product.concat(action.product)
             updatedAmount = state.totalAmount + action.product.price * action.product.amount;
         }
-        return { product: updatedProducts, totalAmount: updatedAmount }
+        return { product: updatedProducts, totalAmount: updatedAmount, SingleProduct: {} }
 
     }
     if (action.type === 'REMOVE') {
@@ -43,11 +43,14 @@ const AddReducer = (state, action) => {
 
 
         const updatedAmount = state.totalAmount - existingItem.price;
-        return { product: updatedProducts, totalAmount: updatedAmount }
+        return { product: updatedProducts, totalAmount: updatedAmount, SingleProduct: {} }
     }
-    return { product: [], totalAmount: 0 };
-}
+    if (action.type === 'SHOW') {
+        return { product: [...state.product], totalAmount: state.totalAmount, SingleProduct: action.product }
+    }
 
+    return { product: [], totalAmount: 0, SingleProduct: [] };
+}
 
 const EcontextProvider = (props) => {
     const [ecomState, dispatchState] = useReducer(AddReducer, { product: [], totalAmount: 0 })
@@ -57,11 +60,16 @@ const EcontextProvider = (props) => {
     const OnRemoveHandler = (id) => {
         dispatchState({ type: 'REMOVE', id: id })
     }
+    const onShowDetailshandler = (product) => {
+        dispatchState({ type: 'SHOW', product: product })
+    }
     const eContext = {
         product: ecomState.product,
+        SingleProduct: ecomState.SingleProduct,
         totalAmount: ecomState.totalAmount,
         OnAddProd: OnAddHandler,
-        onRemoveProd: OnRemoveHandler
+        onRemoveProd: OnRemoveHandler,
+        onShowDetails: onShowDetailshandler
     }
     return (
         < Econtext.Provider value={eContext}>{props.children}</Econtext.Provider>
