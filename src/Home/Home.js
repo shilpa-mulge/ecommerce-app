@@ -5,7 +5,7 @@ import play from '../Images/pl.png';
 const Home = () => {
     return (
         <>
-            <Navbar expand="lg" bg='secondary' style={{ justifyContent: 'center' }}>
+            <Navbar bg="secondary" style={{ justifyContent: 'center', flexWrap: "wrap" }}>
                 <div className="d-grid gap-2">
                     <Button size='lg' variant="outline-info">Get our Latest Album</Button>
 

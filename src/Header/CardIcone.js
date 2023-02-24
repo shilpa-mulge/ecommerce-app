@@ -19,7 +19,7 @@ const CardIcone = (props) => {
         <>
             {CartIsShown && <Cart onClose={onCloseHandler} />}
 
-            <Navbar fixed="top" style={{ width: '100px', left: '90%' }}>
+            <Navbar fixed="top" style={{ width: '100px', left: '85%' }}>
                 <Container style={{ justifyContent: 'right' }} >
                     <Button onClick={onShowHandler}>Cart
                         <Badge bg="light" style={{

@@ -1,4 +1,4 @@
-import { type } from '@testing-library/user-event/dist/type';
+import classes from './Contact.module.css';
 import React from 'react';
 import { Form, Button } from 'react-bootstrap';
 const ContactUs = () => {
@@ -25,11 +25,10 @@ const ContactUs = () => {
     }
 
     return (<>
-        <section style={{ textAlign: 'center', padding: '2rem' }} ><h1 >Contact Us</h1>
+        <div className={classes.container} >
+            <h1 >Contact Us</h1>
             <p>We'd love to get in touch and learn more about you. So, send us your details and we'll reply as fast as we can.</p>
-        </section>
-        <section style={{ boxSizing: 'content-box', textAlign: 'center', display: 'contents' }} >
-            <Form onSubmit={DetailsSubmitHandler}>
+            <Form className={classes.form} onSubmit={DetailsSubmitHandler} >
                 <Form.Group >
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="name" name="name" />
@@ -42,11 +41,11 @@ const ContactUs = () => {
                     <Form.Label>Phone number</Form.Label>
                     <Form.Control type="phone" name="phone" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="secondary" type="submit">
                     Submit
                 </Button>
             </Form>
-        </section>
+        </div>
     </>
     )
 }

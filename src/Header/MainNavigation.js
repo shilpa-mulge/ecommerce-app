@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import classes from './MainNav.module.css';
 import React from 'react';
 const MainNavigation = () => {
@@ -7,42 +7,46 @@ const MainNavigation = () => {
 
         <header>
             <Navbar fixed="top" bg="dark" expand="lg" className={classes.header} >
-                <ul className={classes.list}>
-                    <li  >
-                        <NavLink to="/" className={({ isActive }) =>
-                            isActive ? classes.active : undefined
-                        } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Home</NavLink>
-                    </li>
-                    <li >
-                        <NavLink to="/Product" className={({ isActive }) =>
-                            isActive ? classes.active : undefined
-                        }
-                            style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Store</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/About" className={({ isActive }) =>
-                            isActive ? classes.active : undefined
-                        } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>About</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/ContactUs" className={({ isActive }) =>
-                            isActive ? classes.active : undefined
-                        } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>ContactUs</NavLink>
-                    </li>
-                </ul>
-
+                <Nav>
+                    <ul className={classes.list}>
+                        <li  >
+                            <NavLink to="/" className={({ isActive }) =>
+                                isActive ? classes.active : undefined
+                            } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Home</NavLink>
+                        </li>
+                        <li >
+                            <NavLink to="/Product" className={({ isActive }) =>
+                                isActive ? classes.active : undefined
+                            }
+                                style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Store</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/About" className={({ isActive }) =>
+                                isActive ? classes.active : undefined
+                            } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>About</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/ContactUs" className={({ isActive }) =>
+                                isActive ? classes.active : undefined
+                            } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Contact Us</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/Login" className={({ isActive }) =>
+                                isActive ? classes.active : undefined
+                            } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Login</NavLink>
+                        </li>
+                    </ul>
+                </Nav>
             </Navbar>
-            <Navbar bg="secondary" varient='dark' >
-                <Container style={{
-                    padding: '50px'
-                }}>
-                    <Navbar.Brand style={{
-                        fontSize: '60px',
-                        fontWeight: 'bold',
-                        color: 'white',
-                        margin: 'auto'
-                    }} >The Generics</Navbar.Brand>
-                </Container>
+            <Navbar bg="secondary" expand='lg' varient='dark' style={{
+                padding: '50px', justifyContent: 'center', flexWrap: "wrap"
+            }} >
+                <Navbar.Brand style={{
+                    fontSize: '60px',
+                    fontWeight: 'bold',
+                    color: 'white',
+                    margin: 'auto'
+                }} >The Generics</Navbar.Brand>
             </Navbar>
 
         </header>

@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import Econtext from "./ecom-context";
 
 const AddReducer = (state, action) => {
@@ -63,13 +63,41 @@ const EcontextProvider = (props) => {
     const onShowDetailshandler = (product) => {
         dispatchState({ type: 'SHOW', product: product })
     }
+
+    const item = localStorage.getItem('token');
+    let intialToken = JSON.parse(item);
+    const now = new Date();
+    if (intialToken !== null && now.getTime() > intialToken.expiry) {
+        localStorage.removeItem('token')
+        intialToken = null;
+    }
+    const [token, setToken] = useState(intialToken);
+    const userLoggedIn = !!token;
+    const loginHandler = (token) => {
+        const item = {
+            value: token,
+            expiry: new Date().getTime() + 1 * 60000
+        }
+        setToken(token)
+        localStorage.setItem('token', JSON.stringify(item))
+    }
+    const logoutHandler = () => {
+        setToken(null)
+        localStorage.removeItem('token')
+    }
+
+
     const eContext = {
         product: ecomState.product,
         SingleProduct: ecomState.SingleProduct,
         totalAmount: ecomState.totalAmount,
         OnAddProd: OnAddHandler,
         onRemoveProd: OnRemoveHandler,
-        onShowDetails: onShowDetailshandler
+        onShowDetails: onShowDetailshandler,
+        token: token,
+        isLogedin: userLoggedIn,
+        login: loginHandler,
+        logout: logoutHandler,
     }
     return (
         < Econtext.Provider value={eContext}>{props.children}</Econtext.Provider>

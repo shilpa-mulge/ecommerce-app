@@ -59,21 +59,22 @@ const Product = (props) => {
     return (
         <>
             <CardIcone />
+
             <div className="container">
                 <h2 style={{ textAlign: 'center', padding: '40px' }}>PRODUCTS</h2>
             </div>
             <Container>
-                <Row md={2} style={{ justifyContent: "space-between", gridRowGap: "80px" }} >
+                <Row className="d-flex justify-content-center" style={{ gridColumnGap: '200px', gridRowGap: '100px' }}>
                     {productsArr.map((item) => (
-                        <Col className="d-none d-lg-flex justify-content-center" style={{ width: '500px' }} key={item.id} >
-                            <ProductList id={item.id} title={item.title} price={item.price} imageUrl={item.imageUrl} />                       </Col>
-
+                        <Col lg={3} md={12}
+                            key={item.id} >
+                            <ProductList id={item.id} title={item.title} price={item.price} imageUrl={item.imageUrl} />
+                        </Col>
                     ))}
                 </Row>
             </Container>
 
-
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center', padding: '40px' }}>
                 {CartIsShown && <Cart onClose={onCloseHandler} />}
                 <Button variant="secondary" style={{ color: '#56CCF2' }} onClick={onShowHandler}>See the cart</Button>
             </div>

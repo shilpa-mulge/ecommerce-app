@@ -6,9 +6,10 @@ import EcontextProvider from './store/EcontextProvider';
 import About from './About/About';
 import Home from './Home/Home';
 import Root from './Header/Root';
-import ContactUs from './ContactUs';
+import ContactUs from './Contact/ContactUs';
 import ProductDetailsPage from './Products/ProductsDetailsPage';
 import Cart from './Cart/Cart';
+import Login from './Login/Login';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       }, {
         path: '/Cart',
         element: <Cart />
+      },
+      {
+        path: '/Login',
+        element: <Login />
       }
     ]
   },

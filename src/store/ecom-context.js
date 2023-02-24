@@ -6,6 +6,10 @@ const Econtext = React.createContext({
     totalAmount: 0,
     OnAddProd: items => { },
     onRemoveProd: (id) => { },
-    onShowDetails: item => { }
+    onShowDetails: item => { },
+    token: "",
+    isLogedin: false,
+    login: (token) => { },
+    logout: () => { }
 })
 export default Econtext;
