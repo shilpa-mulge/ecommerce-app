@@ -1,8 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import classes from './MainNav.module.css';
-import React from 'react';
+import Econtext from '../store/ecom-context';
+import React, { useContext } from 'react';
 const MainNavigation = () => {
+    const ctx = useContext(Econtext)
     return (
 
         <header>
@@ -15,10 +17,12 @@ const MainNavigation = () => {
                             } style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Home</NavLink>
                         </li>
                         <li >
-                            <NavLink to="/Product" className={({ isActive }) =>
-                                isActive ? classes.active : undefined
-                            }
-                                style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}>Store</NavLink>
+                            <NavLink to={ctx.isLogedin ? "/Product" : "/Login"}
+                                className={({ isActive }) =>
+                                    isActive ? classes.active : undefined}
+                                style={{ color: 'white', fontWeight: 'bold', textTransform: 'uppercase' }}
+
+                            >Store</NavLink>
                         </li>
                         <li>
                             <NavLink to="/About" className={({ isActive }) =>
