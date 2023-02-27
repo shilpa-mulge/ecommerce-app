@@ -3,11 +3,11 @@ import you from '../Images/youtube.png';
 import spoo from '../Images/SpotifyLogo.png';
 import face from '../Images/FacebookLogo.png';
 import { Navbar, Nav, Image } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+
 const Footer = () => {
     return (
         <footer>
-            <Navbar bg="secondary" style={{ paddingTop: '40px', display: 'flex-right' }}>
+            <Navbar bg="secondary" >
                 <Nav className="me-auto">
                     <Navbar.Brand style={{
                         fontSize: '50px',
