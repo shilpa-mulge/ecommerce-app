@@ -1,16 +1,28 @@
-import React from "react";
-import { Button } from 'react-bootstrap';
+
+import { Button, Col, Row } from 'react-bootstrap';
+import classes from './CartItem.module.css';
 const CartItem = props => {
     return (
         <>
-            <td><img style={{ maxWidth: '100px' }} src={props.imageUrl} alt='' /><div>{props.title}</div>
-            </td>
-            <td>{props.price}</td>
-            <td>{props.amount}</td>
-            <td>
-                <Button variant='danger' onClick={props.onRemove}>-</Button>
-                <Button variant='success' onClick={props.onAdd} >+</Button>
-            </td>
+            <hr />
+            <Row key={props.id} className="justify-content-center align-items-center">
+                <Col><p>{props.title}</p>
+                    <img
+                        className={`rounded border shadow ${classes.cart_product_image}`}
+                        src={props.imageUrl}
+                        alt="Your items added to cart"
+                    />
+                </Col>
+                <Col>
+                    <h3 className="fw-bold">x{props.amount}</h3>
+                </Col>
+                <Col>
+                    <h3 className="fw-bold">${props.price}</h3>
+                    <Button onClick={props.onRemove} variant="danger">
+                        Remove
+                    </Button>
+                </Col>
+            </Row>
         </>
     )
 }

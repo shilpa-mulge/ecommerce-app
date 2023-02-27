@@ -1,13 +1,14 @@
 import React from "react";
 
 const Econtext = React.createContext({
-    product: [],
     SingleProduct: [],
+    cart: [],
     totalAmount: 0,
-    OnAddProd: items => { },
+    onShowCart: () => { },
     onRemoveProd: (id) => { },
     onShowDetails: item => { },
     token: "",
+    email: '',
     isLogedin: false,
     login: (token) => { },
     logout: () => { }

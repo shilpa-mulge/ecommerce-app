@@ -1,16 +1,13 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import MainNavigation from "./MainNavigation";
-import Footer from "./Footer";
 
-const Root = () => {
+const Root = (props) => {
     return (<>
         <MainNavigation />
-        <main>
-            <Outlet />
-        </main>
 
-        <Footer />
+        <main>
+            {props.children}
+        </main>
 
     </>
     )

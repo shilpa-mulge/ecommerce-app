@@ -1,15 +1,13 @@
 .header {
     margin: auto;
     padding: 1rem;
-    display: flex;
-    justify-content: center;
   }
   
   .list {
     display: flex;
     gap: 2rem;
   }
-  
+   
   .list a {
     text-decoration: none;
     color: var(--color-primary-400);

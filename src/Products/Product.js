@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import CardIcone from "../Header/CardIcone";
+import React, { useContext } from "react"
 import { Row, Container, Col, Button } from "react-bootstrap";
 import ProductList from './ProdutList';
-import Cart from "../Cart/Cart";
+import Econtext from "../store/ecom-context";
+import { useNavigate } from 'react-router-dom'
 const Product = (props) => {
+    const ctx = useContext(Econtext)
     const productsArr = [
 
         {
@@ -47,19 +48,14 @@ const Product = (props) => {
         }
 
     ]
-    const [CartIsShown, setCartIsShown] = useState(false)
-    const onShowHandler = () => {
-        setCartIsShown(true)
+    const Navigate = useNavigate();
+    const CartShowHandler = () => {
+        Navigate(`/Login/Cart/${ctx.token}`)
+        ctx.onShowCart()
     }
-    const onCloseHandler = () => {
-        setCartIsShown(false)
-    }
-
 
     return (
         <>
-            <CardIcone />
-
             <div className="container">
                 <h2 style={{ textAlign: 'center', padding: '40px' }}>PRODUCTS</h2>
             </div>
@@ -75,13 +71,8 @@ const Product = (props) => {
             </Container>
 
             <div style={{ textAlign: 'center', padding: '40px' }}>
-                {CartIsShown && <Cart onClose={onCloseHandler} />}
-                <Button variant="secondary" style={{ color: '#56CCF2' }} onClick={onShowHandler}>See the cart</Button>
+                <Button variant="secondary" style={{ color: '#56CCF2' }} onClick={CartShowHandler} >See the cart</Button>
             </div>
-
-
-
-
 
         </>
     )

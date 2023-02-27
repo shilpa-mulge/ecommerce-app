@@ -1,60 +1,62 @@
 import React, { useContext } from 'react';
-import Econtext from '../store/ecom-context';
-import { Table, Modal, Button, CloseButton } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import CartItem from './CartItem';
-const Cart = props => {
+import UICard from '../UI/UICard';
+import Econtext from '../store/ecom-context';
+const Cart = () => {
     const ctx = useContext(Econtext);
     const totalAmount = `$${ctx.totalAmount}`
-    const addProdHandler = product => {
-        ctx.OnAddProd(product)
-    }
-    const removeProdHandler = id => {
+    const remoCartItemHandler = (id) => {
         ctx.onRemoveProd(id)
     }
     return (
         <>
-            <div
-                className="modal show"
-                style={{ display: 'block', position: 'fixed' }}
-            >
-                <Modal.Dialog style={{ float: 'right', top: '50px' }}>
-                    <Modal.Header >
-                        <Modal.Title>CART</Modal.Title>
-                        <CloseButton onClick={props.onClose} />
-                    </Modal.Header>
+            <section className="h-100 text-center w-100 mt-3" id="cart">
+                <h1
+                    className="text-center fw-bold mb-5"
+                    style={{ fontFamily: "Metal Mania" }}
+                >
+                    Shopping Cart
+                </h1>
+                {ctx.cart.length === 0 &&
+                    <Container className="rounded p-4 mb-4 shadow w-75">
+                        <h2>Cart is Empty..</h2>
+                    </Container>
+                }
+                {ctx.cart.length !== 0 && <Container>
 
-                    <Modal.Body>
-                        <Table >
-                            <thead>
-                                <tr>
-                                    <th>ITEM</th>
-                                    <th>PRICE</th>
-                                    <th>QUANTITY</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {ctx.product.map(item => (
-                                    <tr key={item.id}>
-                                        <CartItem title={item.title} price={item.price} id={item.id} amount={item.amount} imageUrl={item.imageUrl}
-                                            onAdd={addProdHandler.bind(null, item)} onRemove={removeProdHandler.bind(null, item.id)} />
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                    </Modal.Body>
+                    <Container className="rounded p-4 mb-4 shadow w-75">
 
-                    <Modal.Footer>
-                        <div className='container' style={{ textAlign: 'right', fontWeight: 'bold' }}>
-                            <span>Total  </span>
-                            <span>{totalAmount}</span>
-                        </div>
-                        <Button variant="secondary">Purchase</Button>
-
-                    </Modal.Footer>
-                </Modal.Dialog>
-
-            </div>
-
+                        <Row className="align-items-center">
+                            <Col>
+                                <h2 className="fw-bold">Total Amount: </h2>
+                            </Col>
+                            <Col>
+                                <h2 className="fw-bold">{totalAmount}</h2>
+                            </Col>
+                        </Row>
+                    </Container>
+                    <UICard className="m-auto">
+                        <Container sm={2} md={3}>
+                            <Row>
+                                <Col>
+                                    <h3 className="fw-bold">Item</h3>
+                                </Col>
+                                <Col>
+                                    <h3 className="fw-bold">Quantity</h3>
+                                </Col>
+                                <Col>
+                                    <h3 className="fw-bold">Price</h3>
+                                </Col>
+                            </Row>
+                            {ctx.cart.map((item, index) => (
+                                <CartItem key={index} title={item.title} price={item.price} id={item._id} amount={item.amount} imageUrl={item.imageUrl} onRemove={remoCartItemHandler.bind(null, item._id)}
+                                />
+                            ))}
+                        </Container>
+                    </UICard>
+                </Container>}
+            </section>
         </>
     )
 }

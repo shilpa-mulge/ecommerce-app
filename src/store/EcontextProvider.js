@@ -1,103 +1,97 @@
-import React, { useReducer, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Econtext from "./ecom-context";
 
-const AddReducer = (state, action) => {
-    if (action.type === 'ADD') {
-        let updatedAmount;
-        const existItemIndex = state.product.findIndex(
-            (item) => {
-                return item.id === action.product.id
-            }
-        );
-        const existingItem = state.product[existItemIndex];
-        let updatedProducts;
-        if (existingItem) {
-            const updatedProduct = { ...existingItem, amount: existingItem.amount + 1 }
-            updatedProducts = [...state.product]
-            updatedProducts[existItemIndex] = updatedProduct;
-            updatedAmount = state.totalAmount + action.product.price
-
-        } else {
-            updatedProducts = state.product.concat(action.product)
-            updatedAmount = state.totalAmount + action.product.price * action.product.amount;
-        }
-        return { product: updatedProducts, totalAmount: updatedAmount, SingleProduct: {} }
-
-    }
-    if (action.type === 'REMOVE') {
-        const existItemIndex = state.product.findIndex(
-            (item) => {
-                return item.id === action.id
-            }
-        );
-        const existingItem = state.product[existItemIndex];
-
-        let updatedProducts;
-        if (existingItem.amount === 1) {
-            updatedProducts = state.product.filter(item => item.id !== action.id);
-        } else {
-            const updatedProduct = { ...existingItem, amount: existingItem.amount - 1 };
-            updatedProducts = [...state.product];
-            updatedProducts[existItemIndex] = updatedProduct;
-        }
-
-
-        const updatedAmount = state.totalAmount - existingItem.price;
-        return { product: updatedProducts, totalAmount: updatedAmount, SingleProduct: {} }
-    }
-    if (action.type === 'SHOW') {
-        return { product: [...state.product], totalAmount: state.totalAmount, SingleProduct: action.product }
-    }
-
-    return { product: [], totalAmount: 0, SingleProduct: [] };
-}
-
 const EcontextProvider = (props) => {
-    const [ecomState, dispatchState] = useReducer(AddReducer, { product: [], totalAmount: 0 })
-    const OnAddHandler = (product) => {
-        dispatchState({ type: 'ADD', product: product })
-    }
-    const OnRemoveHandler = (id) => {
-        dispatchState({ type: 'REMOVE', id: id })
-    }
-    const onShowDetailshandler = (product) => {
-        dispatchState({ type: 'SHOW', product: product })
-    }
-
+    const [totalAmount, setTotalAmount] = useState(0);
+    const [SingleProduct, setSingleProduct] = useState([])
     const item = localStorage.getItem('token');
     let intialToken = JSON.parse(item);
     const now = new Date();
     if (intialToken !== null && now.getTime() > intialToken.expiry) {
         localStorage.removeItem('token')
-        intialToken = null;
+        intialToken.idToken = null;
+        intialToken.emailId = null
+
     }
-    const [token, setToken] = useState(intialToken);
+
+    const [token, setToken] = useState(intialToken ? intialToken.idToken : '');
+    const [email, setEmail] = useState(intialToken ? intialToken.emailId : '')
+    const [cart, setCart] = useState([]);
     const userLoggedIn = !!token;
-    const loginHandler = (token) => {
+
+    const OnRemoveHandler = (id) => {
+        const updatedCart = cart.filter(product => product._id !== id);
+        const productindex = cart.findIndex(item => item._id === id)
+        const product = cart[productindex]
+        setCart(updatedCart);
+        setTotalAmount(preAmount => preAmount - product.price)
+    }
+
+
+    const onShowDetailshandler = (product) => {
+        setSingleProduct(product)
+    }
+
+    const loginHandler = (token, email) => {
         const item = {
-            value: token,
-            expiry: new Date().getTime() + 1 * 60000
+            emailId: email,
+            idToken: token,
+            expiry: new Date().getTime() + 5 * 60000
         }
+        setEmail(email)
         setToken(token)
         localStorage.setItem('token', JSON.stringify(item))
     }
+
     const logoutHandler = () => {
         setToken(null)
         localStorage.removeItem('token')
     }
 
+    const onShowCart = useCallback(() => {
+        const updatedAmount = cart.reduce((currentValue, product) => {
+            return currentValue += product.price;
+        }, 0)
+        setTotalAmount(updatedAmount)
+
+        fetch(`https://crudcrud.com/api/387e01a5c90a47bab00656cb7079acde/${email}`)
+            .then(async response => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    const data = await response.json();
+                    let error = "Something went wrong";
+                    if (data && data.error && data.error.message) {
+                        error = data.error.message;
+                    }
+                    throw new Error(error);
+                }
+            }).then(data => {
+                setCart(data)
+                const updatedAmount = data.reduce((currentValue, product) => {
+                    return currentValue += product.price;
+                }, 0)
+                setTotalAmount(updatedAmount)
+            }).catch(err => {
+                alert(err)
+            })
+    }, [email])
+    useEffect(() => {
+        onShowCart()
+    }, [onShowCart]);
 
     const eContext = {
-        product: ecomState.product,
-        SingleProduct: ecomState.SingleProduct,
-        totalAmount: ecomState.totalAmount,
-        OnAddProd: OnAddHandler,
+        SingleProduct: SingleProduct,
+        totalAmount: totalAmount,
         onRemoveProd: OnRemoveHandler,
         onShowDetails: onShowDetailshandler,
+        email: email,
         token: token,
         isLogedin: userLoggedIn,
         login: loginHandler,
         logout: logoutHandler,
+        cart: cart,
+        onShowCart: onShowCart
     }
     return (
         < Econtext.Provider value={eContext}>{props.children}</Econtext.Provider>

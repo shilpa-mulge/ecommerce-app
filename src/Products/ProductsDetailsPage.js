@@ -1,32 +1,56 @@
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Button, Table, Container, Image, Dropdown, Alert } from "react-bootstrap";
 import Econtext from "../store/ecom-context";
-import { Button, Table, Container, Image, Dropdown } from "react-bootstrap";
-import Cart from "../Cart/Cart";
 
 const ProductDetailsPage = () => {
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [isAdded, setIsAdded] = useState(false)
-    const [CartIsShown, setCartIsShown] = useState(false)
-    const param = useParams();
     const ctx = useContext(Econtext)
+    const Navigate = useNavigate();
     const product = { ...ctx.SingleProduct };
-
-
     const AddtoCartHandler = (event) => {
         event.preventDefault()
         setIsAdded(true)
-        ctx.OnAddProd(product)
+        fetch(`https://crudcrud.com/api/387e01a5c90a47bab00656cb7079acde/${ctx.email}`, {
+            method: 'POST',
+            body: JSON.stringify(product),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(async response => {
+            if (response.ok) {
+                ctx.onShowCart()
+                return response.json()
+            } else {
+                const data = await response.json();
+                let error = "Something went wrong";
+                if (data && data.error && data.error.message) {
+                    error = data.error.message;
+                }
+                throw new Error(error);
+            }
+        }).then(data => {
+            setShowSuccessMessage(true);
+        }).catch(err => {
+            alert(err)
+        })
     }
     const onShowHandler = () => {
-        setCartIsShown(true)
+        Navigate(`/Login/Cart/${ctx.token}`)
+        ctx.onShowCart()
     }
-    const onCloseHandler = () => {
-        setCartIsShown(false)
-    }
+
     return (
         <>
             <Container className="border shadow m-auto mt-5" >
+
                 <Table>
+                    {showSuccessMessage && (
+                        <Alert variant="success">
+                            Added to cart!
+                        </Alert>
+                    )}
                     <tbody>
                         <tr>
                             <td>
@@ -41,7 +65,6 @@ const ProductDetailsPage = () => {
                                 </Dropdown>
                                 <h5>Rating & Reviews <Button variant="outline-info">Rate Product</Button></h5>
                                 <div className="mb-2" style={{ display: 'flex', alignItems: 'flex-end', height: '200px', padding: '2rem' }}>
-                                    {CartIsShown && <Cart onClose={onCloseHandler} />}
                                     {isAdded && <Button size="lg" variant="secondary" onClick={onShowHandler}>go to cart</Button>}
                                     {!isAdded && <Button size="lg" variant="secondary" onClick={AddtoCartHandler}>Add to cart</Button>}
                                     <Button size="lg" vareant='info'>Buy  now</Button>
