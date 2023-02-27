@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Table, Container, Image, Dropdown, Alert } from "react-bootstrap";
 import Econtext from "../store/ecom-context";
+import axios from "axios";
 
 const ProductDetailsPage = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -9,32 +10,17 @@ const ProductDetailsPage = () => {
     const ctx = useContext(Econtext)
     const Navigate = useNavigate();
     const product = { ...ctx.SingleProduct };
-    const AddtoCartHandler = (event) => {
-        event.preventDefault()
+    const AddtoCartHandler = async () => {
         setIsAdded(true)
-        fetch(`https://crudcrud.com/api/387e01a5c90a47bab00656cb7079acde/${ctx.email}`, {
-            method: 'POST',
-            body: JSON.stringify(product),
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        }).then(async response => {
-            if (response.ok) {
+        try {
+            const response = await axios.post(`https://crudcrud.com/api/c85402ca53d34aa5a17ffcbc50662422/${ctx.email}`, product)
+            if (response.data) {
                 ctx.onShowCart()
-                return response.json()
-            } else {
-                const data = await response.json();
-                let error = "Something went wrong";
-                if (data && data.error && data.error.message) {
-                    error = data.error.message;
-                }
-                throw new Error(error);
+                setShowSuccessMessage(true);
             }
-        }).then(data => {
-            setShowSuccessMessage(true);
-        }).catch(err => {
-            alert(err)
-        })
+        } catch (err) {
+            alert(err.message)
+        }
     }
     const onShowHandler = () => {
         Navigate(`/Login/Cart/${ctx.token}`)
@@ -44,13 +30,12 @@ const ProductDetailsPage = () => {
     return (
         <>
             <Container className="border shadow m-auto mt-5" >
-
+                {showSuccessMessage && (
+                    <Alert variant="success">
+                        Added to cart!
+                    </Alert>
+                )}
                 <Table>
-                    {showSuccessMessage && (
-                        <Alert variant="success">
-                            Added to cart!
-                        </Alert>
-                    )}
                     <tbody>
                         <tr>
                             <td>

@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import classes from './SignupForm.module.css';
 import Econtext from '../store/ecom-context';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const SignupForm = () => {
     const ctx = useContext(Econtext);
     const Navigate = useNavigate();
@@ -15,32 +16,14 @@ const SignupForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
-                method: 'POST',
-                body: JSON.stringify({
-                    email: email, password: password, returnSecureToken: true
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
+                email: email, password: password, returnSecureToken: true
             })
-            if (response.ok) {
-                const data = await response.json()
-                const emailId = data.email.replace('.', '').replace('@', '')
-                ctx.login(data.idToken, emailId)
-                Navigate(`/Login/Product/${data.idToken}`)
-            }
-            else {
-                const data = await response.json();
-
-                let error = "Authentication Faild!"
-                if (data && data.error && data.error.message) {
-                    error = data.error.message;
-                }
-                throw new Error(error)
-            }
+            const emailId = response.data.email.split('@')[0];
+            ctx.login(response.idToken, emailId)
+            Navigate('/')
         } catch (err) {
-            alert(err)
+            alert(err.message)
         }
     };
 

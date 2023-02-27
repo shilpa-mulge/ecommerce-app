@@ -1,6 +1,7 @@
 import classes from './Contact.module.css';
 import React, { useState, useRef } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
+import axios from 'axios';
 const ContactUs = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const nameInputRef = useRef();
@@ -14,17 +15,14 @@ const ContactUs = () => {
         const userObj = { name: name, email: email, phone: phone }
 
         try {
-            const response = await fetch('https://react-app-cd331-default-rtdb.firebaseio.com/users.json', {
-                method: 'POST',
-                body: JSON.stringify(userObj),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            const data = await response.json();
+            await axios.post('https://react-app-cd331-default-rtdb.firebaseio.com/users.json', userObj)
             setShowSuccessMessage(true);
+            nameInputRef.current.value = '';
+            emailInputRef.current.value = '';
+            phoneInputRef.current.value = '';
+
         } catch (err) {
-            console.log(err)
+            alert(err.message)
         }
     }
 

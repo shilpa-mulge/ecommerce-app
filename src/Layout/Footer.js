@@ -1,39 +1,34 @@
 import React from "react";
-import you from '../Images/youtube.jpg';
+import you from '../Images/youtube.png';
 import spoo from '../Images/SpotifyLogo.png';
 import face from '../Images/FacebookLogo.png';
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Image } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 const Footer = () => {
     return (
         <footer>
             <Navbar bg="secondary" style={{ paddingTop: '40px', display: 'flex-right' }}>
-                <Navbar.Brand style={{
-                    fontSize: '50px',
-                    margin: 'auto'
-                }}>The Generics</Navbar.Brand>
-                <Nav className="me-left">
-                    <Nav.Link href="https://www.youtube.com/">
-                        <img
-                            src={you}
-                            width="50"
-                            height="50"
-                            alt=""
-                        />
-                    </Nav.Link>
-                    <Nav.Link href="https://spotify.com/">  <img
-                        src={spoo}
-                        width="50"
-                        height="50"
-                        alt=""
-                    /></Nav.Link>
-                    <Nav.Link href="https://facebook.com/">
-                        <img
-                            src={face}
-                            width="50"
-                            height="50"
-                            alt=""
-                        />
-                    </Nav.Link>
+                <Nav className="me-auto">
+                    <Navbar.Brand style={{
+                        fontSize: '50px',
+                    }}>The Generics</Navbar.Brand>
+                </Nav>
+                <Nav className="ms-auto" style={{ gap: '2rem' }}>
+                    <Nav.Item>
+                        <Nav.Link href="https://www.youtube.com/" >
+                            <Image src={you} style={{ width: '40px' }} />
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="https://spotify.com/">
+                            <Image src={spoo} style={{ width: '40px' }} />
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="https://facebook.com/">
+                            <Image src={face} style={{ width: '40px' }} />
+                        </Nav.Link>
+                    </Nav.Item>
                 </Nav>
             </Navbar>
         </footer>

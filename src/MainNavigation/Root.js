@@ -1,14 +1,12 @@
 import React from "react";
-import MainNavigation from "./MainNavigation";
+import WelCome from "./WelCome";
 
 const Root = (props) => {
     return (<>
-        <MainNavigation />
-
+        <WelCome />
         <main>
             {props.children}
         </main>
-
     </>
     )
 }

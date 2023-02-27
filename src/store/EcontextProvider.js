@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useState, useEffect, useCallback } from "react";
 import Econtext from "./ecom-context";
-
 const EcontextProvider = (props) => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [SingleProduct, setSingleProduct] = useState([])
@@ -54,28 +54,18 @@ const EcontextProvider = (props) => {
         }, 0)
         setTotalAmount(updatedAmount)
 
-        fetch(`https://crudcrud.com/api/387e01a5c90a47bab00656cb7079acde/${email}`)
-            .then(async response => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    const data = await response.json();
-                    let error = "Something went wrong";
-                    if (data && data.error && data.error.message) {
-                        error = data.error.message;
-                    }
-                    throw new Error(error);
-                }
-            }).then(data => {
-                setCart(data)
-                const updatedAmount = data.reduce((currentValue, product) => {
+        axios.get(`https://crudcrud.com/api/c85402ca53d34aa5a17ffcbc50662422/${email}`)
+            .then(response => {
+                setCart(response.data)
+                const updatedAmount = response.data.reduce((currentValue, product) => {
                     return currentValue += product.price;
                 }, 0)
                 setTotalAmount(updatedAmount)
             }).catch(err => {
-                alert(err)
+                alert(err.message)
             })
     }, [email])
+
     useEffect(() => {
         onShowCart()
     }, [onShowCart]);
