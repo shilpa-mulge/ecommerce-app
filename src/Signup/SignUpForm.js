@@ -15,15 +15,19 @@ const SignupForm = () => {
     // Handle form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-            const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
-                email: email, password: password, returnSecureToken: true
-            })
-            const emailId = response.data.email.split('@')[0];
-            ctx.login(response.idToken, emailId)
-            Navigate('/')
-        } catch (err) {
-            alert(err.message)
+        if (password === confirmPassword) {
+            try {
+                const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
+                    email: email, password: password, returnSecureToken: true
+                })
+                const emailId = response.data.email.split('@')[0];
+                ctx.login(response.idToken, emailId)
+                Navigate('/')
+            } catch (err) {
+                alert(err.message)
+            }
+        } else {
+            alert("Password and Confirm Password do not match")
         }
     };
 
