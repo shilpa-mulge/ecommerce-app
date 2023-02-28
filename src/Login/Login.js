@@ -22,7 +22,6 @@ const Login = () => {
             history(`/Login/Product/${response.data.idToken}`)
         }
         catch (error) {
-
             alert(error.message)
             emailInputRef.current.value = ''
             passwordInputRef.current.value = ''

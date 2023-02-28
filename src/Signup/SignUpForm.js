@@ -21,7 +21,7 @@ const SignupForm = () => {
                     email: email, password: password, returnSecureToken: true
                 })
                 const emailId = response.data.email.split('@')[0];
-                ctx.login(response.idToken, emailId)
+                ctx.login(response.data.idToken, emailId)
                 Navigate('/')
             } catch (err) {
                 alert(err.message)

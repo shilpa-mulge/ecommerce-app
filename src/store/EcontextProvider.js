@@ -50,7 +50,7 @@ const EcontextProvider = (props) => {
 
     const onShowCart = useCallback(async () => {
         try {
-            const response = await axios.get(`https://crudcrud.com/api/c85402ca53d34aa5a17ffcbc50662422/${email}`)
+            const response = await axios.get(`https://crudcrud.com/api/a54fc3bea4b94de0994c9baee4422afb/${email}`)
             setCart(response.data)
             const updatedAmount = response.data.reduce((currentValue, product) => {
                 return currentValue += product.price;

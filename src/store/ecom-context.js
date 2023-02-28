@@ -11,6 +11,6 @@ const Econtext = React.createContext({
     email: '',
     isLogedin: false,
     login: (token) => { },
-    logout: () => { }
+    logout: () => { },
 })
 export default Econtext;

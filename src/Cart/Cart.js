@@ -50,6 +50,7 @@ const Cart = () => {
                                 </Col>
                             </Row>
                             {ctx.cart.map((item, index) => (
+
                                 <CartItem key={index} title={item.title} price={item.price} id={item._id} amount={item.amount} imageUrl={item.imageUrl} onRemove={remoCartItemHandler.bind(null, item._id)}
                                 />
                             ))}
