@@ -13,7 +13,6 @@ const Login = () => {
         e.preventDefault();
         const enterdEmail = emailInputRef.current.value;
         const enterdPassword = passwordInputRef.current.value;
-
         try {
             const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB2IbR8h8-w-hfsXzEWYgYExp3fG4R8PQ8', {
                 email: enterdEmail, password: enterdPassword, returnSecureToken: true
@@ -22,8 +21,11 @@ const Login = () => {
             ctx.login(response.data.idToken, nameId)
             history(`/Login/Product/${response.data.idToken}`)
         }
-        catch (err) {
-            alert(err.message)
+        catch (error) {
+
+            alert(error.message)
+            emailInputRef.current.value = ''
+            passwordInputRef.current.value = ''
         }
     }
 

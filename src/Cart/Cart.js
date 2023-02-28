@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import CartItem from './CartItem';
 import UICard from '../UI/UICard';
 import Econtext from '../store/ecom-context';
@@ -55,6 +55,9 @@ const Cart = () => {
                             ))}
                         </Container>
                     </UICard>
+                    <Container className="rounded p-4 mb-4 shadow w-75">
+                        <Button varient="info">PURCHASE</Button>
+                    </Container>
                 </Container>}
             </section>
         </>

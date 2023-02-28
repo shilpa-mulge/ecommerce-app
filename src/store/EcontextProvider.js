@@ -48,22 +48,18 @@ const EcontextProvider = (props) => {
         localStorage.removeItem('token')
     }
 
-    const onShowCart = useCallback(() => {
-        const updatedAmount = cart.reduce((currentValue, product) => {
-            return currentValue += product.price;
-        }, 0)
-        setTotalAmount(updatedAmount)
-
-        axios.get(`https://crudcrud.com/api/c85402ca53d34aa5a17ffcbc50662422/${email}`)
-            .then(response => {
-                setCart(response.data)
-                const updatedAmount = response.data.reduce((currentValue, product) => {
-                    return currentValue += product.price;
-                }, 0)
-                setTotalAmount(updatedAmount)
-            }).catch(err => {
-                alert(err.message)
-            })
+    const onShowCart = useCallback(async () => {
+        try {
+            const response = await axios.get(`https://crudcrud.com/api/c85402ca53d34aa5a17ffcbc50662422/${email}`)
+            setCart(response.data)
+            const updatedAmount = response.data.reduce((currentValue, product) => {
+                return currentValue += product.price;
+            }, 0)
+            setTotalAmount(updatedAmount)
+        }
+        catch (err) {
+            alert(err.message)
+        }
     }, [email])
 
     useEffect(() => {
