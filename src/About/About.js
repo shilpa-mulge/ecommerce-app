@@ -9,8 +9,8 @@ const About = () => {
                 <div className="conatainer">
                     <Image roundedCircle style={{ float: 'left', maxWidth: '200px', margin: '20px 50px' }} src={Abt} />
                     <p style={{
-                        fontSize: '17px',
-                        margin: '20px',
+                        fontSize: '20px',
+                        margin: '60px',
                         color: '#777'
                     }}>Lorem ipsum carrots enhanced rebates. Excellent sayings
                         of a man of sorrows, hates no prosecutors will unfold in the

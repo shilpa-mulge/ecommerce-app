@@ -4,6 +4,7 @@ import Econtext from '../store/ecom-context';
 import user from '../Images/user.png';
 import { NavLink } from 'react-router-dom';
 
+
 function WelCome() {
     const ctx = useContext(Econtext);
     const totalQuantity = ctx.cart.reduce((currentValue, product) => {
@@ -18,6 +19,7 @@ function WelCome() {
     }
 
     return (
+
         <Navbar bg="dark" variant="dark">
             <Nav className="me-auto">
                 <Nav.Item>
@@ -58,6 +60,7 @@ function WelCome() {
                 </Nav.Item>}
             </Nav>
         </Navbar>
+
     );
 }
 

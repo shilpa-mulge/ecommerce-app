@@ -18,7 +18,7 @@ const ProductList = (props) => {
                 amount: (sameItem.amount + 1)
             }
             try {
-                const response = await axios.put(`https://crudcrud.com/api/a54fc3bea4b94de0994c9baee4422afb/${ctx.email}/${sameItem._id}`, productObj)
+                const response = await axios.put(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${ctx.email}/${sameItem._id}`, productObj)
                 ctx.onShowCart()
                 setIsAdded(true)
                 console.log(response.data)
@@ -35,7 +35,7 @@ const ProductList = (props) => {
             }
 
             try {
-                const response = await axios.post(`https://crudcrud.com/api/a54fc3bea4b94de0994c9baee4422afb/${ctx.email}`, productObj)
+                const response = await axios.post(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${ctx.email}`, productObj)
                 ctx.onShowCart()
                 setIsAdded(true)
                 console.log(response.data)

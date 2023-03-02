@@ -4,6 +4,8 @@ import Econtext from "./ecom-context";
 const EcontextProvider = (props) => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [SingleProduct, setSingleProduct] = useState([])
+
+    //Storing token, email to localStorage
     const item = localStorage.getItem('token');
     let intialToken = JSON.parse(item);
     const now = new Date();
@@ -36,7 +38,7 @@ const EcontextProvider = (props) => {
         const item = {
             emailId: email,
             idToken: token,
-            expiry: new Date().getTime() + 5 * 60000
+            expiry: new Date().getTime() + 10 * 60000
         }
         setEmail(email)
         setToken(token)
@@ -50,7 +52,7 @@ const EcontextProvider = (props) => {
 
     const onShowCart = useCallback(async () => {
         try {
-            const response = await axios.get(`https://crudcrud.com/api/a54fc3bea4b94de0994c9baee4422afb/${email}`)
+            const response = await axios.get(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${email}`)
             setCart(response.data)
             const updatedAmount = response.data.reduce((currentValue, product) => {
                 return currentValue += product.price;
