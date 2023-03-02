@@ -25,8 +25,8 @@ const SignupForm = () => {
                 const emailId = response.data.email.split('@')[0];
                 ctx.login(response.data.idToken, emailId)
                 Navigate('/')
-            } catch (err) {
-                alert(err.message)
+            } catch (error) {
+                alert(error.response.data.error.message)
             }
         } else {
             alert("Password and Confirm Password do not match")

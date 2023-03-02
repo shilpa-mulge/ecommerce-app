@@ -17,17 +17,16 @@ const ProductDetailsPage = () => {
         if (sameItem) {
             const productObj = {
                 title: product.title,
-                price: (product.price + sameItem.price),
+                price: product.price,
                 imageUrl: product.imageUrl,
                 amount: (sameItem.amount + 1)
             }
             try {
-                const response = await axios.put(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${ctx.email}/${sameItem._id}`, productObj)
+                const response = await axios.put(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}/${sameItem.id}.json`, productObj)
                 ctx.onShowCart()
                 setIsAdded(true)
-                console.log(response.data)
-            } catch (err) {
-                alert(err.message)
+            } catch (error) {
+                alert(error.response.data.error.message)
                 setIsAdded(false)
             }
         } else {
@@ -38,14 +37,15 @@ const ProductDetailsPage = () => {
                 amount: 1
             }
             try {
-                const response = await axios.post(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${ctx.email}`, productObj)
-                if (response.data) {
-                    ctx.onShowCart()
-                    setShowSuccessMessage(true);
-                    setIsAdded(true)
-                }
-            } catch (err) {
-                alert(err.message)
+                const response = await axios.post(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}.json`, productObj)
+
+                ctx.onShowCart()
+                setShowSuccessMessage(true);
+                setIsAdded(true)
+                console.log(response.data)
+
+            } catch (error) {
+                alert(error.response.data.error.message)
                 setIsAdded(false)
             }
         }

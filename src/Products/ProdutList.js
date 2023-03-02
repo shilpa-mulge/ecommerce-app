@@ -13,17 +13,17 @@ const ProductList = (props) => {
         if (sameItem) {
             const productObj = {
                 title: props.title,
-                price: (props.price + sameItem.price),
+                price: props.price,
                 imageUrl: props.imageUrl,
                 amount: (sameItem.amount + 1)
             }
             try {
-                const response = await axios.put(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${ctx.email}/${sameItem._id}`, productObj)
+                const response = await axios.put(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}/${sameItem.id}.json`, productObj)
                 ctx.onShowCart()
                 setIsAdded(true)
                 console.log(response.data)
-            } catch (err) {
-                alert(err.message)
+            } catch (error) {
+                alert(error.response.data.error.message)
                 setIsAdded(false)
             }
         } else {
@@ -35,12 +35,12 @@ const ProductList = (props) => {
             }
 
             try {
-                const response = await axios.post(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${ctx.email}`, productObj)
+                const response = await axios.post(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}.json`, productObj)
                 ctx.onShowCart()
                 setIsAdded(true)
-                console.log(response.data)
-            } catch (err) {
-                alert(err.message)
+
+            } catch (error) {
+                alert(error.response.data.error.message)
                 setIsAdded(false)
             }
         }

@@ -22,8 +22,7 @@ const Login = () => {
             history(`/Login/Product/${response.data.idToken}`)
         }
         catch (error) {
-            alert(error.message)
-
+            alert(error.response.data.error.message)
         }
     }
 

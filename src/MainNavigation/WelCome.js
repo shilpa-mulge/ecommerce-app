@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 
 function WelCome() {
     const ctx = useContext(Econtext);
-    const totalQuantity = ctx.cart.reduce((currentValue, product) => {
+    let totalQuantity = ctx.cart.reduce((currentValue, product) => {
         return currentValue += product.amount;
     }, 0)
 

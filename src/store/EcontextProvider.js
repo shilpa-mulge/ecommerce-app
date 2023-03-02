@@ -21,12 +21,17 @@ const EcontextProvider = (props) => {
     const [cart, setCart] = useState([]);
     const userLoggedIn = !!token;
 
-    const OnRemoveHandler = (id) => {
-        const updatedCart = cart.filter(product => product._id !== id);
-        const productindex = cart.findIndex(item => item._id === id)
+    const OnRemoveHandler = async (id) => {
+        const updatedCart = cart.filter(product => product.id !== id);
+        const productindex = cart.findIndex(item => item.id === id)
         const product = cart[productindex]
         setCart(updatedCart);
-        setTotalAmount(preAmount => preAmount - product.price)
+        setTotalAmount(preAmount => preAmount - product.price * product.amount)
+        try {
+            const response = await axios.delete(`https://react-app-cd331-default-rtdb.firebaseio.com/${email}/${id}.json`)
+        } catch (error) {
+            alert(error.message)
+        }
     }
 
 
@@ -52,15 +57,26 @@ const EcontextProvider = (props) => {
 
     const onShowCart = useCallback(async () => {
         try {
-            const response = await axios.get(`https://crudcrud.com/api/709e9e57fec64e0399c77440e320ed5e/${email}`)
-            setCart(response.data)
-            const updatedAmount = response.data.reduce((currentValue, product) => {
-                return currentValue += product.price;
+            const response = await axios.get(`https://react-app-cd331-default-rtdb.firebaseio.com/${email}.json`)
+            const loadArr = [];
+            for (const key in response.data) {
+                loadArr.push({
+                    id: key,
+                    title: response.data[key].title,
+                    imageUrl: response.data[key].imageUrl,
+                    price: response.data[key].price,
+                    amount: response.data[key].amount
+                })
+            }
+            setCart(loadArr)
+            const updatedAmount = loadArr.reduce((currentValue, product) => {
+                return currentValue += product.price * product.amount;
             }, 0)
             setTotalAmount(updatedAmount)
+
         }
-        catch (err) {
-            alert(err.message)
+        catch (error) {
+            alert(error.response.data.error.message)
         }
     }, [email])
 
