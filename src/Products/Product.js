@@ -56,9 +56,9 @@ const Product = (props) => {
 
     return (
         <>
-            <div className="container">
-                <h2 style={{ textAlign: 'center', padding: '40px' }}>PRODUCTS</h2>
-            </div>
+            <Container className="p-4 text-center h1">
+                PRODUCTS
+            </Container>
             <Container>
                 <Row className="d-flex justify-content-center" style={{ gridColumnGap: '200px', gridRowGap: '100px' }}>
                     {productsArr.map((item) => (
@@ -70,9 +70,9 @@ const Product = (props) => {
                 </Row>
             </Container>
 
-            <div style={{ textAlign: 'center', padding: '40px' }}>
+            <Container className="mb-5 p-4 text-center">
                 <Button variant="secondary" style={{ color: '#56CCF2' }} onClick={CartShowHandler} >See the cart</Button>
-            </div>
+            </Container>
 
         </>
     )

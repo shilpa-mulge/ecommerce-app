@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Econtext from "../store/ecom-context";
 const ProductList = (props) => {
     const ctx = useContext(Econtext);
+    console.log(ctx.email)
     const [isAdded, setIsAdded] = useState(false)
     const Navigate = useNavigate();
     async function onAddHandler() {
@@ -18,7 +19,7 @@ const ProductList = (props) => {
                 amount: (sameItem.amount + 1)
             }
             try {
-                const response = await axios.put(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}/${sameItem.id}.json`, productObj)
+                const response = await axios.put(`https://ecomerse-app-12d71-default-rtdb.firebaseio.com/${ctx.email}/${sameItem.id}.json`, productObj)
                 ctx.onShowCart()
                 setIsAdded(true)
                 console.log(response.data)
@@ -35,7 +36,7 @@ const ProductList = (props) => {
             }
 
             try {
-                const response = await axios.post(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}.json`, productObj)
+                const response = await axios.post(`https://ecomerse-app-12d71-default-rtdb.firebaseio.com//${ctx.email}.json`, productObj)
                 ctx.onShowCart()
                 setIsAdded(true)
 

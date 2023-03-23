@@ -1,6 +1,5 @@
 import React, { useRef, useContext } from "react";
-import classes from './Login.module.css';
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import Econtext from "../store/ecom-context";
 import axios from "axios";
@@ -28,8 +27,8 @@ const Login = () => {
 
     return (
         <>
-            <div className={classes.container}>
-                <Form className={classes.form} onSubmit={LoginHandler}>
+            <Container className="mt-5 w-75 shadow" fluid>
+                <Form className='text-center' onSubmit={LoginHandler}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" ref={emailInputRef} />
@@ -45,7 +44,7 @@ const Login = () => {
                         Login
                     </Button>
                 </Form>
-            </div>
+            </Container>
         </>
     )
 }

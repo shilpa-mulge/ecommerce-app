@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import classes from './SignupForm.module.css';
+import { Form, Button, Container } from 'react-bootstrap';
 import Econtext from '../store/ecom-context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -35,10 +34,10 @@ const SignupForm = () => {
     };
 
     return (
-        <div className={classes.container}>
+        <Container className='mt-5 shadow w-75' fluid>
             {isLoding && <p>Loading...</p>}
             {!isLoding &&
-                <Form className={classes.form} onSubmit={handleSubmit}>
+                <Form className='text-center' onSubmit={handleSubmit}>
                     <Form.Group controlId="email">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control
@@ -73,7 +72,7 @@ const SignupForm = () => {
                         Sign up
                     </Button>
                 </Form>}
-        </div>
+        </Container>
     );
 };
 

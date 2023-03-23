@@ -6,32 +6,31 @@ import { Navbar, Nav, Image } from "react-bootstrap";
 
 const Footer = () => {
     return (
-        <footer>
-            <Navbar bg="secondary" >
+        
+            <Navbar bg='light' fixed="bottom">
                 <Nav className="me-auto">
                     <Navbar.Brand style={{
-                        fontSize: '50px',
-                    }}>The Generics</Navbar.Brand>
+                    }}>© 2023 The Generics, Inc</Navbar.Brand>
                 </Nav>
-                <Nav className="ms-auto" style={{ gap: '2rem' }}>
+                <Nav className="ms-auto" style={{ gap: '1rem'}}>
                     <Nav.Item>
                         <Nav.Link href="https://www.youtube.com/" >
-                            <Image src={you} style={{ width: '40px' }} />
+                            <Image src={you} style={{ width: '30px', backgroundColor:'black' }} />
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link href="https://spotify.com/">
-                            <Image src={spoo} style={{ width: '40px' }} />
+                            <Image src={spoo} style={{ width: '30px', backgroundColor:'black' }} />
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link href="https://facebook.com/">
-                            <Image src={face} style={{ width: '40px' }} />
+                            <Image src={face} style={{ width: '30px',backgroundColor:'black' }} />
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
             </Navbar>
-        </footer>
+        
     )
 }
 export default Footer;

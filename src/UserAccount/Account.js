@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
-import { Card, Image } from 'react-bootstrap';
+import { Card, Container, Image } from 'react-bootstrap';
 import Econtext from '../store/ecom-context';
-import classes from './Account.module.css';
 import user from '../Images/user.png';
 const Account = () => {
     const ctx = useContext(Econtext)
     return (
-        <div className={classes.div}>
+        <Container className='d-flex justify-content-center '>
             <Card>
                 <Card.Body>
                     <Image src={user} roundedCircle />
@@ -16,7 +15,7 @@ const Account = () => {
                     <Card.Link href=''></Card.Link>
                 </Card.Body>
             </Card>
-        </div>
+        </Container>
     );
 };
 export default Account;

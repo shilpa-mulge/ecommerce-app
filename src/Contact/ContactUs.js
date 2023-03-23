@@ -1,6 +1,6 @@
 import classes from './Contact.module.css';
 import React, { useState, useRef } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert, Container } from 'react-bootstrap';
 import axios from 'axios';
 const ContactUs = () => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -15,7 +15,7 @@ const ContactUs = () => {
         const userObj = { name: name, email: email, phone: phone }
 
         try {
-            await axios.post('https://react-app-cd331-default-rtdb.firebaseio.com/users.json', userObj)
+            await axios.post('https://ecomerse-app-12d71-default-rtdb.firebaseio.com//users.json', userObj)
             setShowSuccessMessage(true);
             nameInputRef.current.value = '';
             emailInputRef.current.value = '';
@@ -27,10 +27,10 @@ const ContactUs = () => {
     }
 
     return (<>
-        <div className={classes.container} >
-            <h1 >Contact Us</h1>
-            <p>We'd love to get in touch and learn more about you. So, send us your details and we'll reply as fast as we can.</p>
-            <Form className={classes.form} onSubmit={DetailsSubmitHandler} >
+        <Container className="w-75 mt-5 shadow" fluid >
+            <h1 className='text-center'>Contact Us</h1>
+            <p className='text-center'>We'd love to get in touch and learn more about you. So, send us your details and we'll reply as fast as we can.</p>
+            <Form className='text-center' onSubmit={DetailsSubmitHandler} >
                 {showSuccessMessage && (
                     <Alert variant="success">
                         Your form was submitted successfully!
@@ -52,7 +52,7 @@ const ContactUs = () => {
                     Submit
                 </Button>
             </Form>
-        </div>
+        </Container>
     </>
     )
 }

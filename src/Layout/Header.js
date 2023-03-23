@@ -1,20 +1,11 @@
 import React from "react";
-import { Nav, Navbar } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 const Header = () => {
     return (
         <>
-            <Navbar bg="secondary" variant="">
-                <Nav className="mx-auto">
-                    <Nav.Item>
-                        <Navbar.Brand style={{
-                            fontSize: '60px',
-                            fontWeight: 'bold',
-                            color: 'white',
-                            margin: 'auto'
-                        }} >The Generics</Navbar.Brand>
-                    </Nav.Item>
-                </Nav>
-            </Navbar>
+            <Container  className="mt-5 p-4 text-center w-100 h1" fluid>
+                    The Generics
+            </Container>
         </>
     )
 }

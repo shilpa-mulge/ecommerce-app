@@ -15,7 +15,7 @@ const CartItem = props => {
         }
 
         try {
-            const response = await axios.put(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}/${props.id}.json`, productObj)
+            const response = await axios.put(`https://ecomerse-app-12d71-default-rtdb.firebaseio.com//${ctx.email}/${props.id}.json`, productObj)
             ctx.onShowCart()
             console.log(response.data)
         } catch (error) {
@@ -32,7 +32,7 @@ const CartItem = props => {
         }
 
         try {
-            const response = await axios.put(`https://react-app-cd331-default-rtdb.firebaseio.com/${ctx.email}/${props.id}.json`, productObj)
+            const response = await axios.put(`https://ecomerse-app-12d71-default-rtdb.firebaseio.com//${ctx.email}/${props.id}.json`, productObj)
             ctx.onShowCart()
         } catch (error) {
             alert(error.response.data.error.message)

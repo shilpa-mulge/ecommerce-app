@@ -11,7 +11,7 @@ const Cart = () => {
     }
     return (
         <>
-            <section className="h-100 text-center w-100 mt-3" id="cart">
+            <Container className="h-100 text-center w-100 mt-3" fluid>
                 <h1
                     className="text-center fw-bold mb-5"
                     style={{ fontFamily: "Metal Mania" }}
@@ -56,11 +56,11 @@ const Cart = () => {
                             ))}
                         </Container>
                     </UICard>
-                    <Container className="rounded p-4 mb-4 shadow w-75">
+                    <Container className="rounded p-4 mb-5 shadow w-75">
                         <Button varient="info">PURCHASE</Button>
                     </Container>
                 </Container>}
-            </section>
+            </Container>
         </>
     )
 }

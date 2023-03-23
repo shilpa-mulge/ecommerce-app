@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { Navbar, Nav, Badge, Image } from 'react-bootstrap';
+import { Navbar, Nav, Badge, Image, NavDropdown, Offcanvas, Container } from 'react-bootstrap';
 import Econtext from '../store/ecom-context';
 import user from '../Images/user.png';
 import { NavLink } from 'react-router-dom';
-
 
 function WelCome() {
     const ctx = useContext(Econtext);
@@ -18,9 +17,8 @@ function WelCome() {
         ctx.onShowCart()
     }
 
-    return (
-
-        <Navbar bg="dark" variant="dark">
+    return (<>
+        <Navbar bg="dark" variant="dark" fixed='top'>
             <Nav className="me-auto">
                 <Nav.Item>
                     <Nav.Link as={NavLink} to="/home">Home</Nav.Link>
@@ -40,11 +38,12 @@ function WelCome() {
                 {ctx.isLogedin && <Nav.Item>
                     <Nav.Link as={NavLink} to={`/Login/Product/${ctx.token}`} >Store</Nav.Link>
                 </Nav.Item>}
-                {ctx.isLogedin && <Nav.Item>
-                    <Nav.Link as={NavLink} to='/' onClick={logoutHandler} >Logout</Nav.Link>
-                </Nav.Item>}
+               
             </Nav>
             <Nav className='ms-auto' style={{ gap: '2rem' }}>
+            {ctx.isLogedin && <Nav.Item>
+                    <Nav.Link as={NavLink} to='/' onClick={logoutHandler} >Logout</Nav.Link>
+                </Nav.Item>}
                 {ctx.isLogedin && <Nav.Item>
                     <Nav.Link as={NavLink} to={`/Login/Cart/${ctx.token}`} onClick={ShowCartItemsHandler}>
                         Cart
@@ -60,6 +59,8 @@ function WelCome() {
                 </Nav.Item>}
             </Nav>
         </Navbar>
+
+    </>
 
     );
 }

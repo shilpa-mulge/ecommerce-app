@@ -9,6 +9,7 @@ import { lazy, Suspense, useContext } from 'react';
 import Econtext from './store/ecom-context';
 import Header from './Layout/Header';
 import Footer from './Layout/Footer';
+import { Container } from 'react-bootstrap';
 const NotFound = lazy(() => import('./NotFound/NotFound'));
 const SignupForm = lazy(() => import('./Signup/SignUpForm'));
 const Account = lazy(() => import('./UserAccount/Account'));
@@ -23,6 +24,7 @@ const App = () => {
   const ctx = useContext(Econtext);
   return (
     <>
+     <Container className='overflow-auto h-100 p-0' fluid>
       <Suspense fallback={<p>Loading...</p>}>
         <Root>
           <Routes>
@@ -98,6 +100,7 @@ const App = () => {
           </Routes>
         </Root>
       </Suspense>
+      </Container>
     </>
 
   );

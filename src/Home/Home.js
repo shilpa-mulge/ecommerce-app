@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Table, Navbar, Image } from "react-bootstrap";
+import { Button, Table, Navbar, Image, Container } from "react-bootstrap";
 import play from '../Images/pl.png';
 
 const Home = () => {
     return (
         <>
-            <Navbar bg="secondary" style={{ justifyContent: 'center', flexWrap: "wrap" }}>
+            <Navbar  style={{ justifyContent: 'center', flexWrap: "wrap" }}>
                 <div className="d-grid gap-2">
                     <Button size='lg' variant="outline-info">Get our Latest Album</Button>
 
@@ -16,7 +16,7 @@ const Home = () => {
             <div className="container">
                 <h2 style={{ padding: '0px', fontSize: '30px', textAlign: 'center' }}>Tours</h2>
             </div>
-            <div style={{ padding: '20px 30px' }}>
+            <Container className="mb-5 p-4">
                 <Table bordered >
                     <tbody>
                         <tr>
@@ -57,7 +57,7 @@ const Home = () => {
                         </tr>
                     </tbody>
                 </Table>
-            </div>
+            </Container>
         </>
     )
 }
